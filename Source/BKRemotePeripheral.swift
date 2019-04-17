@@ -77,6 +77,8 @@ public class BKRemotePeripheral: BKRemotePeer, BKCBPeripheralDelegate {
             case .connecting: return .connecting
             case .connected: return .connected
             case .disconnecting: return .disconnecting
+        @unknown default:
+            fatalError("state isn't in enum!")
         }
         #else
         switch peripheral!.state {

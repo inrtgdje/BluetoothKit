@@ -82,7 +82,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
 
     /// Currently connected remote centrals
     public var connectedRemoteCentrals: [BKRemoteCentral] {
-        return connectedRemotePeers.flatMap({
+        return connectedRemotePeers.compactMap({
             guard let remoteCentral = $0 as? BKRemoteCentral else {
                 return nil
             }
@@ -182,7 +182,7 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
 
     private func handleDisconnectForRemoteCentral(_ remoteCentral: BKRemoteCentral) {
         failSendDataTasksForRemotePeer(remoteCentral)
-        connectedRemotePeers.remove(at: connectedRemotePeers.index(of: remoteCentral)!)
+        connectedRemotePeers.remove(at: connectedRemotePeers.firstIndex(of: remoteCentral)!)
         delegate?.peripheral(self, remoteCentralDidDisconnect: remoteCentral)
     }
 
@@ -221,6 +221,8 @@ public class BKPeripheral: BKPeer, BKCBPeripheralManagerDelegate, BKAvailability
                 default:
                     break
             }
+        @unknown default:
+            fatalError("no this state!")
         }
     }
 

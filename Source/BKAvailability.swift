@@ -166,7 +166,7 @@ public extension BKAvailabilityObservable {
     */
     func removeAvailabilityObserver(_ availabilityObserver: BKAvailabilityObserver) {
         if availabilityObservers.contains(where: { $0.availabilityObserver === availabilityObserver }) {
-            availabilityObservers.remove(at: availabilityObservers.index(where: { $0 === availabilityObserver })!)
+            availabilityObservers.remove(at: availabilityObservers.firstIndex(where: { $0 === availabilityObserver })!)
         }
     }
 
